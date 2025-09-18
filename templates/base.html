@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard de Inversiones - OPMI-MPR - Región San Martín {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/audio_player.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/report_f12b.css') }}">
+        
+</head>
+
+<body>
+    <div id="matrixContainer" class="header">
+        <canvas id="matrixCanvas"></canvas>
+        <div class="navbar ">
+            
+            <button id="btn-resumen" class="active">RESUMEN</button>
+            <button id="btn_bulk_excel_advanced"> EXCEL BULK-MASIVO</button> 
+            <button id="btn_ca_mef" >EXCEL CONS.-AMIGABLE</button>
+            <button id="btn-f12b">F12-B</button>
+            <button id="btn-rei" data-view="dashboard">METAS REI 2025</button>
+            <button id="btn-proyeccion-f1">PROYECCIÓN F.1</button>
+            <button id="btn-muni">MUNICIPALIDAD</button>
+            <button id="btn-siga">SIGA</button>
+            <button id="btn-ceplan">CEPLAN</button>
+            <button id="btn-tab-ctrl">TABLERO CTRL</button>
+            <button id="btn-seguimiento">SEGUIMIENTO</button>
+            <button id="btn-inv-culminadas">Inv. Culminadas</button>
+            <button id="btn-proyeccion-d1">PROYECCIÓN D.1</button>
+            <button id="btn-analisis-anual">Análisis Anual</button>
+            <button id="btn-pmi">PMI</button>
+            <button id="btn-contratos">CONTRATOS</button>
+            <button id="btn-valorizacion">VALORIZACIÓN</button>
+            <button id="btn-pia-54-dcf">PIA + 54 DCF</button>
+            <button id="btn-excel_up">SUBIR EXCEL</button>   
+            <button id="btn-excel_advanced" class="nav-button"> EXCEL ADVAN</button>
+            <button id="btn-prueba">PRUEBA</button>
+            <button id="btn-sindicato">SINDICATO</button>    
+            <button id="btn-recordatorio">RECORDATORIO</button>
+
+        </div>        
+    </div>
+    <div class="dragon-container">
+        <img src="../static/image/dragon1.gif" alt="Dragón Chino Animado" class="dragon-animado">
+    </div>
+    <div class="content-area" id="content-area">
+        {% block content %}{% endblock %}
+    </div>
+    {# Comentario: El reproductor de audio se incluye aquí, FUERA del content-area #}
+       
+    
+        {% include 'partials/_audio_player_ui.html' %} 
+
+    
+    {# Comentario: jQuery debe ser el primero si otros scripts dependen de él #}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- estos tres son de RECORDATORIO Carga de jQuery (obligatorio para Bootstrap) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>    <!-- Carga de Popper.js (obligatorio para Bootstrap 4) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>    <!-- Carga de Bootstrap JS -->
+    <!-- FINALIZA de los tres que son de RECORDATORIO Carga de jQuery (obligatorio para Bootstrap) -->
+
+    
+    {# Comentario: Configuración de AppConfig (depende de Jinja, no de jQuery) #}
+    <script type="text/javascript">
+        var AppConfig = {
+            
+            EXCEL_UPLOAD_FORM_URL: "{{ url_for('excel_upload.excel_upload_form_page') }}",
+            EXCEL_UPLOAD_API_URL: "{{ url_for('excel_upload.upload_excel_data') }}",
+            AUDIO_PLAYER_PLAYLIST_URL: "{{ url_for('audio_player.get_playlist') }}",
+            SIGA_CONTENT_URL: "{{ url_for('core.siga_content') }}",
+
+            // --- NUEVAS URLs para el módulo Excel Avanzado ---
+            EXCEL_ADVANCED_FORM_URL: "{{ url_for('excel_advanced.advanced_upload_form_page') }}",
+            EXCEL_ADVANCED_INITIAL_UPLOAD_API_URL: "{{ url_for('excel_advanced.advanced_upload_initial') }}",
+            EXCEL_ADVANCED_VALIDATE_MAPPING_API_URL: "{{ url_for('excel_advanced.advanced_validate_mapping_and_db') }}",
+            EXCEL_ADVANCED_CREATE_TABLE_API_URL: "{{ url_for('excel_advanced.advanced_create_table') }}",
+            EXCEL_ADVANCED_LOAD_DATA_API_URL: "{{ url_for('excel_advanced.advanced_load_data') }}",
+            EXCEL_ADVANCED_REANALYZE_SHEET: "{{ url_for('excel_advanced.advanced_reanalyze_sheet') }}",
+         
+              // --- URLs para el módulo Bulk Excel Avanzado (el nuevo, LIMPIO) ---
+            EXCEL_BULK_ADVANCED_FORM_URL: "{{ url_for('excel_bulk_advanced.excel_bulk_advanced_upload_form_page') }}",
+            EXCEL_BULK_ADVANCED_INITIAL_UPLOAD_API_URL: "{{ url_for('excel_bulk_advanced.excel_bulk_advanced_upload_initial') }}",
+            EXCEL_BULK_ADVANCED_REANALYZE_SHEET: "{{ url_for('excel_bulk_advanced.excel_bulk_advanced_reanalyze_sheet') }}",
+            EXCEL_BULK_ADVANCED_VALIDATE_MAPPING_API_URL: "{{ url_for('excel_bulk_advanced.excel_bulk_advanced_validate_mapping_and_db') }}",
+            EXCEL_BULK_ADVANCED_CREATE_TABLE_API_URL: "{{ url_for('excel_bulk_advanced.excel_bulk_advanced_create_table') }}",
+            EXCEL_BULK_ADVANCED_LOAD_DATA_API_URL: "{{ url_for('excel_bulk_advanced.excel_bulk_advanced_load_data') }}",
+            EXCEL_BULK_ADVANCED_LOAD_ALL_SHEETS_API_URL: "{{ url_for('excel_bulk_advanced.excel_bulk_advanced_load_all_sheets') }}", 
+            EXCEL_BULK_ADVANCED_DELETE_TABLE: "{{ url_for('excel_bulk_advanced.excel_bulk_advanced_delete_table') }}",
+            
+            // --- NUEVAS URLs para el módulo Excel Consulta MEF (CA_MEF) ---
+            EXCEL_CONSULTA_MEF_FORM_URL: "{{ url_for('excel_consulta_mef.excel_consulta_mef_upload_form_page') }}",
+            EXCEL_CONSULTA_MEF_INITIAL_UPLOAD_API_URL: "{{ url_for('excel_consulta_mef.excel_consulta_mef_upload_initial') }}",
+            EXCEL_CONSULTA_MEF_REANALYZE_SHEET: "{{ url_for('excel_consulta_mef.excel_consulta_mef_reanalyze_sheet') }}",
+            EXCEL_CONSULTA_MEF_VALIDATE_MAPPING_API_URL: "{{ url_for('excel_consulta_mef.excel_consulta_mef_validate_mapping_and_db') }}",
+            EXCEL_CONSULTA_MEF_CREATE_TABLE_API_URL: "{{ url_for('excel_consulta_mef.excel_consulta_mef_create_table') }}",
+            EXCEL_CONSULTA_MEF_LOAD_ALL_SHEETS_API_URL: "{{ url_for('excel_consulta_mef.excel_consulta_mef_load_all_sheets') }}",
+            EXCEL_CONSULTA_MEF_DELETE_TABLE: "{{ url_for('excel_consulta_mef.excel_consulta_mef_delete_table') }}",
+
+            // --- NUEVA URL para el módulo Report F12B) ---
+            REPORTE_F12B_FORM_URL: "{{ url_for('reporte_f12b.reporte_12b_form_page') }}",
+
+            // --- NUEVA URL para el módulo MÓDULO REI! ---
+            REI_MODULE_CONTENT_URL: "{{ url_for('rei.dashboard_page') }}", //---Carga partials/rei.html con vista dashboard ---
+            API_DASHBOARD_SUMMARY_URL: "{{ url_for('rei.api_dashboard_summary') }}",
+            API_INDICADOR_DATA_URL: "{{ url_for('rei.api_indicador_data', indicador_id=0) }}", // ---# Placeholder para el ID---
+         
+            // --- NUEVA URL para el módulo SINDICATO! ---
+            SINDICATO_DASHBOARD_URL: "{{ url_for('sindicato_dashboard_content') }}",
+
+            // --- NUEVA URL para el módulo PROYECCION.F1! ---
+            PROYECCION_F1_URL: "{{ url_for('proyeccion_f1.proyeccion_f1_page') }}",
+            PROYECCION_F1_API_URL: "{{ url_for('proyeccion_f1.get_proyeccion_f1_data') }}",
+        
+            // URLs para el módulo Recordatorio
+            RECORDATORIO_HTML_URL:"{{ url_for('recor_principal.recordatorio_page')}}",
+            RECORDATORIO_GET_URL: "{{ url_for('recor_principal.get_reminders') }}",
+            RECORDATORIO_ADD_URL: "{{ url_for('recor_principal.add_reminder') }}",
+            RECORDATORIO_DELETE_URL: "{{ url_for('recor_principal.delete_reminder', reminder_id=0) }}",
+            RECORDATORIO_GET_DATA_URL: "{{ url_for('recor_principal.get_reminder', reminder_id=0) }}",
+            RECORDATORIO_UPDATE_URL: "{{ url_for('recor_principal.update_reminder', reminder_id=0) }}",
+            // NUEVAS URLS PARA ALARMAS
+            RECORDATORIO_ALARM_CHECK_URL: "{{ url_for('recor_principal.check_alarms') }}",
+            RECORDATORIO_MARK_NOTIFIED_URL: "{{ url_for('recor_principal.mark_notified', reminder_id=0) }}",
+            RECORDATORIO_SET_ALARM_URL: "{{ url_for('recor_principal.set_alarm_status') }}",
+            RECORDATORIO_GET_ALARM_URL: "{{ url_for('recor_principal.get_alarm_status') }}", // NUEVA URL 
+        // NUEVAS URLS PARA MUNICIPALIDAD
+            MUNICIPALIDAD_HTML_URL: "{{ url_for('municipalidad.data_page') }}",
+            MUNICIPALIDAD_GET_DATA_URL: "{{ url_for('municipalidad.get_data') }}",    
+            // NUEVAS URLS PARA tablero de control
+            TAB_CONTROL_HTML_URL: "{{ url_for('tab_control.data_pagetab') }}",
+            TAB_CONTROL_GET_DATA_URL: "{{ url_for('tab_control.get_datatab') }}",
+                     
+            JS_URLS: {
+                excel_upload: '{{ url_for("static", filename="js/excel_upload.js") }}',
+                excel_advanced: '{{ url_for("static", filename="js/excel_advanced.js") }}',
+                excel_bulk_advanced: '{{ url_for("static", filename="js/excel_bulk_advanced.js") }}',
+                excel_consulta_mef: '{{ url_for("static", filename="js/excel_consulta_mef.js") }}',
+                report_f12b: '{{ url_for("static", filename="js/report_f12b.js") }}',
+                rei: '{{ url_for("static", filename="js/rei.js") }}',
+                sindicato: '{{ url_for("static", filename="js/sindicato.js") }}',
+                xls_consulta_mef: '{{ url_for("static", filename="js/xls_consulta_mef.js") }}',
+                recordatorio: '{{ url_for("static", filename="js/recordatorio.js") }}',
+                municipalidad: '{{ url_for("static", filename="js/municipalidad.js") }}',
+                proyeccion_f1: '{{ url_for("static", filename="js/proyeccion_f1.js") }}',
+                tab_control: '{{ url_for("static", filename="js/tab_control.js") }}'
+
+
+                // Agrega cualquier otro archivo JS que necesites aquí
+            },
+
+            CSS_URLS: {
+                siga: '{{ url_for("static", filename="css/siga.css") }}',
+                excel_upload: '{{ url_for("static", filename="css/excel_upload.css") }}',
+                excel_advanced: '{{ url_for("static", filename="css/excel_advanced.css") }}',
+                excel_bulk_advanced: '{{ url_for("static", filename="css/excel_bulk_advanced.css") }}',
+                excel_consulta_mef: '{{ url_for("static", filename="css/excel_consulta_mef.css") }}',
+                report_f12b: '{{ url_for("static", filename="css/report_f12b.css") }}',
+                rei: '{{ url_for("static", filename="css/rei.css") }}',
+                sindicato: '{{ url_for("static", filename="css/sindicato.css") }}',
+                proyeccion_f1: '{{ url_for("static", filename="css/proyeccion_f1.css") }}',
+                recordatorio: '{{ url_for("static", filename="css/recordatorio.css") }}',
+                municipalidad: '{{ url_for("static", filename="css/municipalidad.css") }}',
+                prueba: '{{ url_for("static", filename="css/prueba.css") }}',
+                tab_control: '{{ url_for("static", filename="css/tab_control.css") }}'
+
+
+            }
+
+        };//console.log("AppConfig cargado:", AppConfig); //deberia salir pero no es necesario
+    </script>
+    
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>     {# Podría depender de jQuery #}
+    <script src="{{ url_for('static', filename='js/particleExplosion.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/audioPlayer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script> 
+    <script src="{{ url_for('static', filename='js/matrix_effect.js') }}"></script>
+
+
+
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>        {# Su orquestador principal #}
+
+
+    {% block scripts %}{% endblock %} {# Comentario Para scripts específicos de cada página que hereda de base.html #}
+</body>
+ <footer>
+        <p>&copy; 2025, My Application SoRmAc-TDA /** Todos los derechos reservados **\.</p>
+    </footer>
+</html>

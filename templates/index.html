@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    {% include 'partials/_dashboard_content.html' %}
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Renderizar el gráfico de gasto por mes
+            var graphGastoPorMesData = {{ graph_gasto_por_mes_json | safe }};
+            Plotly.newPlot('gasto-por-mes', graphGastoPorMesData.data, graphGastoPorMesData.layout);
+
+            // Renderizar el gráfico de gasto por trimestre
+            var graphGastoPorTrimestreData = {{ graph_gasto_por_trimestre_json | safe }};
+            Plotly.newPlot('gasto-por-trimestre', graphGastoPorTrimestreData.data, graphGastoPorTrimestreData.layout);
+
+            // Renderizar el gráfico de gasto por función
+            var graphGastoPorFuncionData = {{ graph_gasto_por_funcion_json | safe }};
+            Plotly.newPlot('gasto-por-funcion', graphGastoPorFuncionData.data, graphGastoPorFuncionData.layout);
+        });
+    </script>
+{% endblock %}
