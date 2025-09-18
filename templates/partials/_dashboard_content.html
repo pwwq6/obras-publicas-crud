@@ -1,0 +1,55 @@
+<h1 id="h1valor">Dashboard de Inversiones</h1>
+<p id="p1valor">Un dashboard para visualizar los datos de inversiones.</p>
+
+<div style="display: flex; gap: 20px; margin-bottom: 20px;">
+    <div class="metric-card">
+        <h3 class="metric-title">Total Costo de Inversión</h3>
+        <p class="metric-value" style="color: #28a745 !important;">{{ total_costo_formateado }}</p>
+    </div>
+    <div class="metric-card">
+        <h3 class="metric-title">Total Presupuestado (PIM 2025)</h3>
+        <p class="metric-value" style="color: #17a2b8 !important;">{{ total_presupuestado_formateado }}</p>
+    </div>
+    <div class="metric-card">
+        <h3 class="metric-title">% de Gasto (Dev.Acum. / Inv. total 2025)</h3>
+        <p class="metric-value" style="color: #ffc107 !important;">{{ porcentaje_gasto_formateado }}</p>
+    </div>
+    <div class="metric-card">
+        <h3 class="metric-title">Saldo (Inv. Total 2025 - PIM 2025 - Dev. Acum.)</h3>
+        <p class="metric-value" style="color: #dc3545 !important;">{{ saldo_formateado }}</p>
+    </div>
+</div>
+
+<div class="dashboard-grid">
+    <div class="graph-container">
+        <div id="gasto-por-mes"></div>
+    </div>
+    <div class="graph-container">
+        <div id="gasto-por-trimestre"></div>
+    </div>
+    <div class="graph-container">
+        <div id="gasto-por-funcion"></div>
+    </div>
+</div>
+
+<div class="data-table-container">
+    <h2>Tabla de Inversiones</h2>
+    <table class="report-tableF12B">
+        <thead>
+            <tr>
+                {% for col in tabla_columns %}
+                <th>{{ col.name }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in tabla_data %}
+            <tr>
+                {% for col in tabla_columns %}
+                <td>{{ row[col.id] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

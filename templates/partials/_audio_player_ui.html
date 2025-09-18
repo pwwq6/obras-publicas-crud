@@ -1,0 +1,45 @@
+<div class="audio-player dark" id="skin">
+    <div class="user_avatar">
+        <div class="player-controls scrubber">
+            <div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                        <p class="title" style="margin: 0; flex-grow: 1; min-width: 0;">
+                            <span id="song-title-text">Cargando canciones...</span>
+                        </p>
+                        <i class="fa fa-random" id="shuffle-btn" style="cursor: pointer; margin-right: 10px;"></i>
+                        <i class="fa fa-plus-circle playlist-toggle" style="cursor: pointer;"></i>
+                    </div>
+                    <div class="playlist-container" style="display: none; max-height: 150px; overflow-y: auto; background-color: rgba(0,0,0,0.3); border-radius: 5px; padding: 5px;">
+                        <ul class="playlist" style="list-style: none; padding: 0; margin: 0;">
+                        </ul>
+                    </div>
+                </div>
+                <div class="progress-container">
+                        <input id="dur" type="range" name="rng" min="0" max="100" step="0.00000001" value="0">
+                        <div class="progress-fill"></div>
+                </div>
+                <div class="time" style="display: flex; justify-content: space-between; margin-top: 5px;">
+                    <span class="start-time" id="current-time">00:00</span>
+                    <span class="live-indicator">live <i class="fa fa-circle fa-fw"></i></span> <span class="end-time" id="total-time">00:00</span>
+                </div>
+
+                <div class="ctrl">
+                    <div>
+                        <a href="#prev" class="ctrl_btn" id="prev"><i class="fa fa-arrow-left"></i></a>
+                        <span id="play-btn" class="fa fa-play"></span>
+                        <a href="#next" class="ctrl_btn" id="next"><i class="fa fa-arrow-right"></i></a>
+                    </div>
+                    <div class="volumeControl">
+                        <i class="fa fa-volume-up volume-icon" id="volume-icon"></i>
+                        <input id="volume-range" type="range" min="0" max="1" step="0.01" value="1" class="volume-slider">
+                    </div>
+                    <div class="action"></div>
+                </div>
+            </div>
+        </div>
+        <div class="audio-wrapper" id="player-container">
+            <audio id="audio-player" preload="metadata" controls="false"></audio> 
+        </div>
+    </div>
+</div>

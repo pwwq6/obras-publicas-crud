@@ -1,0 +1,78 @@
+<div class="proyeccion-f1-container p-6 bg-whites rounded-lg shadow-md">                <button  id="Print_proyeccion_F1" class="btn btn-info btn-shine-effect"><img style="width: 19px; padding-right: 8px;" src="../static/image/tabla.png"> Imprimir Proyección</button>
+
+    
+                <div class="reporte-proyeccion-f1-print">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Proyección a Mes de Diciembre - Ejecución Financiera </h2>
+
+    <div id="resumen_proyeccion_f1"  class="mb-8 p-4 bg-gray-100 rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+            <p class="text-sm font-medium text-gray-500">PIM Total 2025</p>
+            <p id="pimTotal" class="text-lg font-bold text-gray-900">0.00</p>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-gray-500">Devengado Acumulado a la Fecha</p>
+            <p id="devengadoAcumulado" class="text-lg font-bold text-gray-900">0.00</p>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-gray-500">Consideración 11 Meses</p>
+            <p id="proyeccion11Meses" class="text-lg font-bold text-gray-900">0.00</p>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-gray-500">Consideración 12 Meses</p>
+            <p id="proyeccion12Meses" class="text-lg font-bold text-gray-900">0.00</p>
+        </div>
+    </div>
+
+    <div id="chart_contenedor" class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div class="text-gray-700a1" id="contenedor_chart1">
+            <h3 >Programado vs. Devengado Real MP-Rioja 12 Meses</h3>
+            <canvas class="chart-g" id="devengadoRealChart"></canvas>
+        </div>
+        <div class="text-gray-700a1" id="contenedor_chart2">
+            <h3>Programado vs. Devengado Acumulado MP-Rioja 12 Meses</h3>
+            <canvas class="chart-g" id="devengadoAcumuladoChart"></canvas>
+        </div>
+    </div>
+
+    <div id="tabla_contenedor" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-whitess p-4 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold text-gray-700a mb-2">Proyección 12 Meses</h3>
+            <div class="overflow-x-auto">
+                <table class="report-tableF12B">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mes</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Proy. 12 Meses</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ejecución 12 Meses</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Avance (%)</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Devengado Real</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Avance % Real</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Diferencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="proyeccionTable12MesesBody"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="bg-whitess p-4 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold text-gray-700a mb-2">Proyección 11 Meses</h3>
+            <div class="overflow-x-auto">
+                <table class="report-tableF12B">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mes</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Proy. 11 Meses</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Proy. Acum. 11 Mes.</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Avance (%)</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Devengado Real</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Avance % Real</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Diferencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="proyeccionTable11MesesBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
