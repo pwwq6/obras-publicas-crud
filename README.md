@@ -1,8 +1,8 @@
 # Obras Públicas – CRUD básico
-CRUD simple de obras públicas hecho con Python (FastAPI), MySQL, HTML, CSS y JS.
+CRUD simple de obras públicas hecho con Python (flask), MySQL, HTML, CSS y JS.
 
 ## Características
-- Lista de obras
+- Proyeccion de Obra
 - Alta, baja y edición
 - Base de datos MySQL (o SQLite para demo)
 
@@ -17,12 +17,12 @@ CRUD simple de obras públicas hecho con Python (FastAPI), MySQL, HTML, CSS y JS
    pip install -r requirements.txt
 5. Levanta la app  
    python app.py
-6. Abre http://localhost:8000
+6. Abre http://127.0.0.1:5000/
 
 ## Tecnologías
 - Backend: FastAPI
 - DB: MySQL (o SQLite si no tienes MySQL)
-- Front: HTML, CSS, JavaScript vanilla
+- Front: HTML, CSS, JavaScript 
 - Docker: próximamente
 
 ## Autor
