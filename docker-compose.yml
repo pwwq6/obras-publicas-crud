@@ -1,8 +1,26 @@
-version: "3.9"
+version: '3.8'
+
 services:
   web:
     build: .
     ports:
       - "5000:5000"
+    depends_on:
+      - db
     environment:
-      - FLASK_ENV=production
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: inversiones
+    command: python app.py
+
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: inversiones
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./inversiones.sql:/docker-entrypoint-initdb.d/init.sql:ro
