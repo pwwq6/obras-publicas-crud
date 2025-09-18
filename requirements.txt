@@ -1,4 +1,4 @@
-fastapi
+flask
 uvicorn
 sqlalchemy
 pymysql
