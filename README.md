@@ -8,7 +8,7 @@ CRUD simple de obras públicas hecho con Python (FastAPI), MySQL, HTML, CSS y JS
 
 ## Instalación rápida
 1. Clona el repo  
-   git clone https://github.com/&lt;&lt;&lt;&lt;TU_USUARIO&gt;&gt;&gt;&gt;/obras-publicas-crud.git
+   git clone https://github.com/pwwq6/obras-publicas-crud.git
 2. Entra a la carpeta  
    cd obras-publicas-crud
 3. Crea entorno virtual (opcional)  
@@ -27,4 +27,4 @@ CRUD simple de obras públicas hecho con Python (FastAPI), MySQL, HTML, CSS y JS
 
 ## Autor
 Ingeniero Estadístico e Informático – Perú  
-LinkedIn: https://www.linkedin.com/in/&lt;&lt;&lt;&lt;TU_USUARIO_LINKEDIN&gt;&gt;&gt;&gt;/
+LinkedIn: https://www.linkedin.com/in/simon-orlando-mamani-ba2b1a76/
