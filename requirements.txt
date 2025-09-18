@@ -1,4 +1,6 @@
 flask
-uvicorn
+fastapi
+uvicorn[standard]
 sqlalchemy
 pymysql
+python-dotenv
