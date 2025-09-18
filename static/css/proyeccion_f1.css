@@ -1,0 +1,107 @@
+.clase-mes-actual {
+    background-color: #28a745; /* Un verde vibrante, puedes cambiarlo */
+    color: white; /* Para que el texto resalte sobre el fondo oscuro */
+    font-weight: bold;
+}
+.text-gray-500 {
+    --tw-text-opacity: 1;
+    color: rgb(35 94 213) !important;
+}
+@media (min-width: 1024px) {
+    .lg\:grid-cols-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        background: #97cddf !important;
+    }
+}
+.chart-g{
+    background: aliceblue !important;
+}
+.text-gray-800ab {
+    --tw-text-opacity: 1;
+    color: rgb(31 41 55 / var(--tw-text-opacity, 1)) !important;
+    background: khaki !important;
+}
+.bg-whitess {
+    --tw-bg-opacity: 1;
+    background-color: #7bb192 !important
+}
+.bg-whites {
+    --tw-bg-opacity: 1;
+    background-color: #149393  !important
+}
+
+.p-6 {
+    padding: 0rem !important;
+}
+#Print_proyeccion_F1{
+    display: flex;
+    justify-content: flex-end !important;
+    width: 17% !important;
+    padding-right: 20px !important; 
+}
+.text-gray-700a {
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+    font-weight: 900;
+    font-family: monospace;
+}
+.text-gray-700a1 {
+    --tw-text-opacity: 1;
+    color: rgb(212 255 214);
+    font-weight: 900;
+    font-family: monospace;
+
+}
+.mb-8aa {
+    margin-bottom: 1rem !important;
+}
+
+/*#####################3################## Inicio de Proyeccion F1 ###########################################*/
+@media print {
+    #Print_proyeccion_F1 {
+        display: none !important;                /**OJO: SE USA FLEX PARA QUE DOS CUADROS ENTREN UNA FILA, SI ES BLOCK SE USA POR CADA TABLA */
+    }
+    body > *:not(#content-area) {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    #content-area {
+        display: block !important;
+        visibility: visible !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+     #tabla_contenedor {
+        page-break-inside: avoid !important; /* Mantenemos esta, pero le damos más prioridad */
+        display: block !important; /* Aseguramos que sea un bloque independiente */
+        orphans: 4; /* Deja al menos 4 filas al final de la página */
+        widows: 4; /* Asegura que al menos 4 filas queden al inicio de la siguiente */
+    }
+    #resumen_proyeccion_f1 {
+        display: flex !important;/*aca se pone flex para que el resumen vaya en una sola fila, no se vaya en 4 filas como ya paso creoq ue estaba en block*/
+        justify-content: space-around !important; /* O 'space-between', 'center' si lo prefieres */
+        flex-direction: row !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin: 0 !important;
+        margin-bottom: 20px !important; /* Ajusta este valor (ej. 10px, 1cm) según tus necesidades- LE DA ESPACIO PARA ABAJO PARA QUE APAREZCA PEGADO */
+    }
+    #contenedor_chart1 {
+    background-color: aliceblue !important;
+    }
+    #contenedor_chart2 {
+    background-color: aliceblue !important;
+    }
+    #contenedor_chart1 h3,
+    #contenedor_chart2 h3 {
+        visibility: visible !important;
+        display: block !important;
+        font-size: 14px !important; /* Puedes ajustar el tamaño de la fuente */
+        font-weight: bold !important;
+        margin-top: 20px !important;
+        margin-bottom: 10px !important;
+        text-align: center !important; /* Centra el texto en la impresión */
+        color: black;
+    }
+}

@@ -1,0 +1,341 @@
+/* Estilos globales para el body y el header principal */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    /*background-color: #00D2FF;*/
+    /*background: linear-gradient(135deg, #00D2FF 0%, #00D2FF 100%)*/
+    background-color: palegolde;
+    BORDER-BOTTOM: RIDGE;
+}
+
+
+        /* --- Estilos del Botón "Gradiente Vibrante" (con el azul solicitado) --- */
+        /*.btn-vibrant-gradient {
+            color: var(--color-white); /* Text color is white *
+            /* Main gradient background: Original Blue Vibrant *
+            background: linear-gradient(135deg, #3A7BD5 0%, #00D2FF 100%);
+            /* Initial shadow for glow effect, adjusted for the blue color *
+            
+            position: relative; /* Needed for ::before pseudo-element positioning *
+            z-index: 1; * Ensures button is above its ::before element *
+            overflow: hidden; * Hides the ::before element initially *
+        }*/
+
+
+/*INICIO BOTONES*/
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    place-content: center;/*aca pone los botones en el centro*/
+}
+.navbar button {
+    padding: 8px 15px;
+   /* border: none;*/
+    background-color: rgba(0, 0, 0, 0.75);
+    font-size: small;
+    color: white;
+   /* border-color: orchid  !important;*/
+    border-width: inherit;
+        border-bottom: ridge;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: monospace;
+    box-shadow: 0 10px 30px rgba(0, 210, 255, 0.4);
+    position: relative; /* Needed for ::before pseudo-element positioning */
+    z-index: 1; /* Ensures button is above its ::before element */
+    overflow: hidden; /* Hides the ::before element initially */
+}
+
+.navbar button::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute; /* Positions relative to the button */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Inverted or different gradient for hover state, adjusted for the blue color */
+    background: linear-gradient(135deg, #04ff53 0%, #d50e0e, #eeff00 100%);
+    z-index: -1; /* Positions behind the button content */
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity change */
+}      
+
+.navbar button:hover::before {
+    opacity: 1; /* Make the ::before element visible on hover */
+}
+
+.navbar button:hover {
+
+    transform: translateY(-4px) scale(1.03); /* Lifts and slightly enlarges the button */
+    box-shadow: 0 5px 20px #fcf700;
+}
+
+.navbar button.active {
+    background-color: seagreen; /* Botón activo */
+    transform: translateY(0);
+            /* Reduces shadow, adjusted for the blue color */
+    box-shadow: 0 5px 20px rgba(0, 210, 255, 0.3);
+}
+/*FINAL BOTONES*/
+
+.content-area {
+    padding: 8px;
+    background: powderblue;
+    text-align: -webkit-center;
+    text-emphasis-color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.fa-fw {
+    color: turquoise;
+}
+
+/* FIN DE MODAL */
+
+/*PARA BULK EXCEL ADVANCED*/
+/* static/css/main.css (Contenido existente más las siguientes adiciones) */
+
+/* Estilos para el loader global */
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente oscuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+.spinner {
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    border-top: 8px solid #3498db; /* Color del spinner */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 20px; /* Espacio entre spinner y mensaje */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader-message {
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: bold;
+    position: absolute;
+    margin-top: 80px; /* Debajo del spinner */
+}
+/*ACA VA MODALES*/
+/* Estilos para el Modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Permanece en la misma posición incluso al hacer scroll */
+    z-index: 1000; /* Se sitúa por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Cubre todo el ancho */
+    height: 100%; /* Cubre toda la altura */
+    overflow-y: auto; /* Permite scroll VERTICAL en el modal si el contenido es muy largo */
+    background-color: rgba(0,0,0,0.7); /* Fondo semi-transparente negro */
+    /*display: flex; /* Para centrar el contenido si pongo flex aparece modal al inicio del sistema, por lo que se retira*/
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 0px; /* Un margen fijo para que no pegue a los bordes de la ventana */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 100%; /* Ancho del contenido del modal */
+    max-width: 1200px; /* Ancho máximo para pantallas grandes */
+    max-height: calc(100vh - 40px); /* <--- CLAVE PARA RESTRINGIR LA ALTURA */
+    overflow-y: auto; /* <--- CLAVE PARA QUE EL CONTENIDO DEL MODAL TENGA SU PROPIO SCROLL */
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatemodal;
+    animation-duration: 0.4s;
+    display: flex; /* Para organizar el contenido interno, si se usa flexbox */
+    flex-direction: column; /* Organizar los elementos en columna */
+}
+
+/* Animación para que el modal aparezca suavemente */
+@keyframes animatemodal {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1001; /* Asegurar que esté por encima del contenido si hay scroll */
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.close-button2 {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1001; /* Asegurar que esté por encima del contenido si hay scroll */
+}
+
+.close-button2:hover,
+.close-button2:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para el contenido dentro del modal, si necesitas especificidad */
+/* Esto es importante si la tabla va directamente en el modal-body-pmi */
+#modal-body-pmi {
+    margin-top: 0px; /* Espacio para el botón de cierre */
+    flex-grow: 1; /* Permite que este div crezca y ocupe el espacio disponible */
+    overflow-y: auto; /* Si el contenido de la tabla es muy largo, este div tendrá scroll */
+}
+
+
+/*ACA TERMINA  MODALES*/
+
+
+
+
+/* Estilos para los mensajes de alerta/éxito */
+.alert-message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.alert-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-message.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+        /*------------------ACA ESTA EL MATRIX........................ */
+#matrixContainer {
+    width: auto; /* ¡Aquí se usa el porcentaje! */
+    height: auto; /* La altura en píxeles */
+    /*border: 2px solid #00ff00;*/
+    position: relative;
+    overflow: hidden;
+}
+#matrixCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+        /*------------------ACA SE MUEVE EL DRAGON o el AVE........................ */
+
+
+        /* Asegura que el contenedor del dragón esté siempre visible y por encima de todo */
+/* Contenedor del dragón: esencial para el posicionamiento y la animación */
+.dragon-container {
+    position: fixed;        /* Permanece visible incluso con scroll */
+    top: 85px;              /* Ajusta la altura a la que quieres que vuele el dragón */
+    left:-5%;                /* Comienza en el extremo izquierdo de la pantalla - IZQUIERDA*/ 
+    width: 120vw;           /* Ocupa todo el ancho de la ventana del navegador -DERECHA*/
+    height: 200px;          /* Altura fija para el contenedor, ajusta según el tamaño de tu dragón */
+    overflow: hidden;       /* Oculta cualquier parte del dragón que esté fuera de este contenedor */
+    pointer-events: none;   /* Permite interactuar con elementos debajo del dragón */
+    z-index: 9999;          /* Asegura que el dragón esté siempre por encima de todo */
+}
+
+/* La imagen del dragón que se va a animar */
+.dragon-animado {
+    width: 100px;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    /* Animación principal de movimiento horizontal */
+    animation: moverDragon 15s linear 1000; /* El '1' indica que se repite una sola vez */
+    animation-fill-mode: forwards; /* Mantiene la posición final de la animación */
+}
+
+/* El @keyframes no necesita cambios si ya funciona como deseas */
+@keyframes moverDragon {
+    0% {
+        transform: translateX(0);
+    }
+    49% {
+        transform: translateX(100vw);
+    }
+    50% {
+        transform: translateX(100vw) scaleX(-1);
+    }
+    99% {
+        transform: translateX(0) scaleX(-1);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Si tu imagen de dragón no tiene el movimiento de cola incorporado y quisieras simularlo */
+/* Puedes comentar o eliminar esta sección si tu dragón ya es un GIF animado con movimiento de cola */
+/*
+@keyframes animarCola {
+    0%, 100% {
+        transform: rotateZ(0deg);
+    }
+    50% {
+        transform: rotateZ(5deg);
+    }
+}
+

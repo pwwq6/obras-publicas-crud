@@ -1,0 +1,455 @@
+/* Estilos para el reproductor de audio */
+/* General */
+.audio-player {
+    position: fixed;
+    bottom: 0px;
+    right: 2px;
+    width: 250px; /* Ancho reducido: de 320px a 250px */
+    height: auto; /* Altura auto para adaptarse al contenido */
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+/* Tema Dark (por defecto) */
+.dark.audio-player {
+    /*background-color: #146;*/
+    color: #fff;
+    background-color: #222236;*/
+}
+.dark .inner { background: #fff; }
+.dark .title, .dark .time, .dark .fa-volume-up, .dark #play-btn, .dark .ctrl_btn { color: #fff; border-color: #fff; }
+
+/* Estilos para el Marquee del título */
+.player-controls .title {
+    white-space: nowrap; /* Evita que el texto se envuelva */
+    overflow: hidden; /* Oculta el texto que excede el contenedor */
+    text-overflow: ellipsis; /* Añade puntos suspensivos si no hay animación */
+    max-width: calc(100% - 60px); /* Ajusta según los íconos de la derecha */
+    position: relative; /* Necesario para la animación */
+    padding-left: 0; /* Asegura que el texto empiece en el borde izquierdo */
+    box-sizing: border-box; /* Incluye padding en el ancho */
+}
+
+.player-controls .title #song-title-text {
+    display: inline-block; /* Permite la animación de transformación */
+    animation: marquee var(--marquee-duration, 10s) linear infinite; /* Duración por defecto, será ajustada por JS */
+    animation-play-state: paused; /* Pausado por defecto, activado por JS si es necesario */
+    will-change: transform; /* Optimización de rendimiento */
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Estilos para la barra de progreso */
+.progress-container {
+    position: relative;
+    width: 100%;
+    height: 8px; /* Altura de la barra de progreso */
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%; /* Se actualiza con JavaScript */
+    background-color: #ffc107; /* Color de relleno (amarillo) */
+    border-radius: 4px;
+}
+
+.progress-container input[type="range"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-appearance: none; /* Eliminar estilos predeterminados del navegador */
+    background: transparent; /* Hacer el fondo transparente */
+    cursor: pointer;
+    z-index: 2; /* Para que el slider esté por encima del fill */
+}
+
+/* Estilos para el "thumb" (el circulito) del slider */
+.progress-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px; /* Tamaño del thumb */
+    width: 16px;
+    border-radius: 50%;
+    background: #007bff; /* <--- CAMBIAR A AZUL */
+    cursor: pointer;
+    margin-top: -4px; /* Centrar verticalmente */
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+
+.progress-container input[type="range"]::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+
+/* Estilos para el "track" (la línea) del slider para navegadores específicos */
+.progress-container input[type="range"]::-webkit-slider-runnable-track {
+    background: transparent; /* Ya lo cubre .progress-fill */
+    height: 8px;
+    border-radius: 4px;
+}
+.progress-container input[type="range"]::-moz-range-track {
+    background: transparent; /* Ya lo cubre .progress-fill */
+    height: 8px;
+    border-radius: 4px;
+}
+
+.audio-player .holder {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.audio-player .cover {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.audio-player .cover img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.audio-player .audio-wrapper {
+    display: none; /* El reproductor HTML5 nativo se oculta, se usan controles personalizados */
+}
+
+.audio-player .player-controls {
+    text-align: center;
+}
+
+.audio-player .player-controls .title {
+    font-size: 0.65em;
+    margin-bottom: 0px;
+    font-weight: bold;
+    color: #fff; /* Default para tema oscuro */
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.audio-player .player-controls .title span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
+    animation-play-state: paused;
+}
+
+.audio-player .player-controls .time {
+    font-size: 0.7em;
+    color: #ccc;
+    margin: 0 5px;
+}
+
+.audio-player .player-controls .start-time {
+    float: left;
+}
+
+.audio-player .player-controls .end-time {
+    float: right;
+}
+
+.audio-player .player-controls .ctrl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.audio-player .player-controls .ctrl_btn {
+    background: none;
+    border: 1px solid #fff; /* Default para tema oscuro */
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff; /* Default para tema oscuro */
+    font-size: 1.0em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 3px;
+}
+
+.audio-player .player-controls .ctrl_btn:hover {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.audio-player #play-btn {
+    font-size: 1.3em;
+    cursor: pointer;
+    color: #fff; /* Default para tema oscuro */
+    transition: all 0.2s ease;
+    margin: 0 3px;
+}
+
+.audio-player #play-btn:hover {
+    color: #007bff;
+}
+
+.audio-player .volumeControl {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos para el indicador "Live" */
+.live-indicator {
+    background-color: rgb(101 12 12 / 70%);     
+    color: white;             
+    padding: 2px 6px;       
+    border-radius: 4px;     
+    font-size: 0.75em;        
+    font-weight: bold;        
+    vertical-align: middle;   
+    margin-left: 8px;         
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3); 
+}
+.live-indicator.hidden {
+    display: none;
+}
+
+.audio-player .action .like {
+    background: none;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 4px 8px;
+    color: #fff;
+    text-decoration: none;
+    margin-left: 5px;
+    font-size: 0.7em;
+}
+
+.audio-player .action .like:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+/* Estilos para la lista de reproducción */
+.playlist-container {
+    margin-top: 10px; /* Espacio entre el título y la lista */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+}
+
+.playlist-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Separador entre ítems */
+    font-size: 0.9em;
+    white-space: nowrap; /* Evitar que el texto se rompa */
+    overflow: hidden; /* Ocultar el desbordamiento del texto */
+    text-overflow: ellipsis; /* Mostrar puntos suspensivos si el texto es muy largo */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    color: rgba(255, 255, 255, 0.8); /* Color de texto para el tema oscuro */
+}
+
+/* Color del texto del playlist-item en el tema White */
+.white .playlist-item {
+    color: #555;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Color del texto del playlist-item en el tema Blue */
+.blue .playlist-item {
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.playlist-item:hover {
+    background-color: rgba(0, 123, 255, 0.5); /* Color de resaltado al pasar el ratón */
+    color: #fff; /* Asegurar texto blanco al pasar el ratón */
+}
+
+.playlist-item.active-song {
+    background-color: #007bff; /* Color para la canción activa */
+    color: white; /* Texto blanco para la canción activa */
+    font-weight: bold;
+}
+/* En tu archivo audio_player.css */
+
+/* Estilos para el contenedor de la barra de progreso */
+.progress-container {
+    position: relative; /* Necesario para posicionar el .progress-fill */
+    width: 100%;
+    height: 8px; /* Altura de la barra de progreso */
+    background: #000000; /* Color de fondo de la barra vacía (la parte "no-reproducida") */
+    border-radius: 5px;
+    /*overflow: hidden; /* Para que el relleno no se salga de los bordes redondeados */
+    margin-top: 10px; /* Ajusta según tu diseño */
+    margin-bottom: 5px; /* Ajusta según tu diseño */
+}
+
+/* El relleno amarillo que ya funciona */
+.progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%; /* Llenar la altura del contenedor */
+    background-color: steelblue; /* Color amarillo/dorado */
+    border-radius: 5px;
+    z-index: 1; /* Está sobre el .progress-container */
+    pointer-events: none; /* Crucial: permite que los clics pasen al input[type="range"] subyacente */
+}
+
+/* Estilos para el input de rango (la barra arrastrable y la bolita) */
+input[type="range"] {
+    -webkit-appearance: none; /* MUY IMPORTANTE: Elimina estilos por defecto de Chrome, Safari, Edge */
+    -moz-appearance: none;    /* Elimina estilos por defecto de Firefox */
+    width: 100%;
+    height: 8px; /* Debe coincidir con la altura del .progress-container */
+    background: transparent; /* <--- ¡ESTO ES CLAVE! Hace el input transparente */
+    outline: none; /* Elimina el contorno al hacer clic */
+    cursor: pointer;
+    position: relative; /* Para que z-index funcione */
+    z-index: 2; /* <--- ¡ESTO ES CLAVE! Debe estar por encima de .progress-fill (que tiene z-index: 1) */
+    margin: 0; /* Elimina márgenes por defecto */
+    padding: 0; /* Elimina paddings por defecto */
+}
+
+/* Estilos para la "bolita" (thumb) en WebKit (Chrome, Safari, Edge) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* MUY IMPORTANTE: Permite personalizar la bolita */
+    width: 18px; /* Tamaño de la bolita */
+    height: 18px; /* Tamaño de la bolita */
+    border-radius: 50%; /* ¡Para que sea redonda! */
+    background: #FFD700; /* Color amarillo/dorado para la bolita */
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Una pequeña sombra para que resalte */
+    margin-top: -5px; /* Ajusta la posición vertical para centrarla en la barra de 8px */
+    transition: background .2s ease-in-out; /* Animación de color al pasar el ratón */
+    z-index: 3; /* Asegura que la bolita esté por encima de la pista del slider y el relleno */
+}
+
+/* Estilos para la "bolita" (thumb) en Firefox */
+input[type="range"]::-moz-range-thumb {
+    -moz-appearance: none; /* Permite personalizar la bolita */
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #FFD700;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+    z-index: 3; /* Asegura que la bolita esté por encima */
+}
+
+/* Estilos para la "pista" (track) del input de rango en WebKit (la parte de la barra detrás de la bolita) */
+input[type="range"]::-webkit-slider-runnable-track {
+    background: transparent; /* La pista es transparente para que se vea el .progress-fill */
+    height: 8px;
+    border-radius: 5px;
+    
+}
+
+/* Estilos para la "pista" (track) del input de rango en Firefox */
+input[type="range"]::-moz-range-track {
+    background: transparent; /* La pista es transparente */
+    height: 8px;
+    border-radius: 5px;
+}
+
+/*ESTO ES NETAMENTE PARA EL VOLUMEN CON SLIDER PARA AUMENTAR O DISMINUIR*/
+/* Estilos para el slider de volumen */
+.volumeControl .volume-slider {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 70px; /* Ancho del slider de volumen */
+    height: 5px; /* Altura de la barra del slider */
+   /* background: #555; /* Color de la parte "vacía" de la barra */
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 0;
+}
+
+/* Estilos para el "thumb" (la bolita) del slider de volumen en WebKit */
+.volumeControl .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #007bff; /* Color de la bolita azul */
+    box-shadow: 0 0 3px rgba(0,0,0,0.4);
+    margin-top: -3.5px; /* Centrar verticalmente */
+    z-index: 2; /* Asegurar que el thumb esté por encima del track */
+    position: relative; /* Necesario para z-index en algunos casos */
+}
+
+/* Estilos para el "track" (la línea) del slider de volumen en WebKit */
+.volumeControl .volume-slider::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #007bff 0%, #007bff var(--volume-fill), #555 var(--volume-fill), #555 100%); /* <--- CAMBIAR AQUÍ */
+    height: 5px;
+    border-radius: 5px;
+}
+
+/* Estilos para el "thumb" en Firefox */
+.volumeControl .volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #007bff; /* Color de la bolita azul */
+    box-shadow: 0 0 3px rgba(0,0,0,0.4);
+    cursor: pointer;
+}
+
+/* Estilos para el "track" en Firefox */
+.volumeControl .volume-slider::-moz-range-track {
+    background: #555; /* El color base de la barra */
+    height: 5px;
+    border-radius: 5px;
+}
+
+/* Estilos para el progreso de Firefox (parte rellenada) */
+.volumeControl .volume-slider::-moz-range-progress {
+    background: #007bff; /* Color azul para el relleno */
+    height: 5px;
+    border-radius: 5px;
+}
+/* --- Para Internet Explorer/Edge (si es necesario) --- */
+/* Aunque menos común, es buena práctica si busca máxima compatibilidad */
+.volumeControl .volume-slider::-ms-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #007bff;
+    box-shadow: 0 0 3px rgba(0,0,0,0.4);
+    cursor: pointer;
+    /* Para IE, a menudo se usa la propiedad ms-fill-lower para el color de relleno */
+}
+.volumeControl .volume-slider::-ms-track {
+    background: transparent; /* Hace el track transparente para que ms-fill-lower/upper se vean */
+    border-color: transparent;
+    color: transparent;
+    height: 5px;
+    border-radius: 5px;
+}
+.volumeControl .volume-slider::-ms-fill-lower {
+    background: #007bff; /* Color de la parte rellenada para IE/Edge */
+    border-radius: 5px;
+}
+.volumeControl .volume-slider::-ms-fill-upper {
+    background: #555; /* Color de la parte no rellenada para IE/Edge */
+    border-radius: 5px;
+}
+/*ACA TERMINA VOLUMEN SLIDER*/
